@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Aplicacion de Tareas</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <h1>Aplicacion de Tareas</h1>
+    <form action="/tasks/" method="post">
+      <input
+        type="text"
+        name="task"
+        id="task"
+        placeholder="Agrega una nueva tarea"
+      />
+      <button type="submit">Agregar tarea</button>
+    </form>
+    <ul>
+      <% todos.forEach(function(todo) { %>
+      <li>
+        <form
+          action="/tasks/<%= todo._id %>/update"
+          method="post"
+          style="display: inline"
+        >
+          <input type="text" name="task" id="task" value="<%- todo.task %>" />
+          <button type="submit">Actualizar</button>
+        </form>
+        <form
+          action="/tasks/<%= todo._id %>/complete"
+          method="post"
+          style="display: inline"
+        >
+          <button type="submit">
+            <%= todo.is_completed ? 'Pendiente' : 'Completa' %>
+          </button>
+        </form>
+        <form
+          action="/tasks/<%= todo._id %>/delete"
+          method="post"
+          style="display: inline"
+        >
+          <button type="submit">Eliminar</button>
+        </form>
+      </li>
+      <% }); %>
+    </ul>
+  </body>
+</html>
